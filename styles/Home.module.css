@@ -182,7 +182,7 @@
 }
 
 .contact-form {
-  grid-column: 2 / span 8;
+  grid-column: 3 / span 6;
   grid-row: 3;
 
   width: 100%;
@@ -234,9 +234,37 @@ textarea.contact-form_input {
   flex-grow: 1;
 }
 
+@media (max-width: 1110px) {
+  .skill-article h1 {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 3em;
+    margin-block-start: unset;
+    margin-block-end: unset;
+  }
+  .skill-article h2 {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 2em;
+    margin-block-start: unset;
+    margin-block-end: unset;
+  }
+
+  .skill-image {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-title > h1 {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 3em;
+    margin-block-start: unset;
+    margin-block-end: unset;
+  }
+}
+
 @media (max-width: 860px) {
-
-
   .skill-article h1 {
     font-family: S-CoreDream-7ExtraBold, sans-serif;
     font-size: 2em;
@@ -256,5 +284,57 @@ textarea.contact-form_input {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .main > .contact-article {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: auto;
+    justify-content: space-around;
+    grid-auto-flow: row;
+    grid-gap: 0.2rem;
+  }
+
+  .contact-title {
+    grid-column: 3 / span 6;
+    grid-row: 2;
+
+    text-align: center;
+  }
+
+  .contact-title > h1 {
+    font-family: S-CoreDream-7ExtraBold, sans-serif;
+    font-size: 2em;
+    margin-block-start: unset;
+    margin-block-end: unset;
+  }
+
+  .contact-form {
+    grid-column: 3 / span 6;
+    grid-row: 3;
+
+    width: 100%;
+    height: auto;
+    background-color: mediumpurple;
+    border-radius: 20px;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr) 4fr 0.2fr;
+  }
+
+  textarea.contact-form_input {
+    grid-column: auto;
+
+    width: 100%;
+    height: 100%;
+    resize: none;
+  }
+  .contact-form_input[type=submit] {
+    grid-column: auto;
+
+    width: 100%;
+    height: 100%;
   }
 }

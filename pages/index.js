@@ -2,12 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {useEffect, useState} from "react";
-import {google as gapi} from "googleapis";
-
-const SPREADSHEET_ID = '1yjE0QMeangSgGg5mAS7KZXyGLdKwO0n2HNmUD3FIM-I'; //from the URL of your blank Google Sheet
-const CLIENT_ID = '1082397394331-f4ercooh4a7pqb4fq2v163qqj0jfe82n.apps.googleusercontent.com'; //from https://console.developers.google.com/apis/credentials
-const API_KEY = 'AIzaSyDPfotbB-60LG5M6oZAppbe_i3pGAKy5jA'; //from https://console.developers.google.com/apis/credentials
-const SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
 function Header() {
   return (
@@ -120,44 +114,9 @@ function ContactArticle() {
     const [message, setMessage] = useState('')
     const [submitted, setSubmitted] = useState(false)
 
-    let sheet;
-
-    useEffect(() =>{
-        initClient();
-    }, [])
-
-    const initClient = () => {
-         sheet = gapi.sheets({
-            version: "v4",
-            auth: API_KEY
-        });
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log('sending')
-
-        const params = {
-            // The ID of the spreadsheet to update.
-            spreadsheetId: SPREADSHEET_ID,
-            // The A1 notation of a range to search for a logical table of data.Values will be appended after the last row of the table.
-            range: 'Sheet1', //this is the default spreadsheet name, so unless you've changed it, or are submitting to multiple sheets, you can leave this
-            // How the input data should be interpreted.
-            valueInputOption: 'RAW', //RAW = if no conversion or formatting of submitted data is needed. Otherwise USER_ENTERED
-            // How the input data should be inserted.
-            insertDataOption: 'INSERT_ROWS', //Choose OVERWRITE OR INSERT_ROWS
-            resource: {
-                'values': [e]
-            },
-        };
-
-        let request = sheet.spreadsheets.values.append(params);
-        request.then(function (response) {
-            // TODO: Insert desired response behaviour on submission
-            console.log(response);
-        }, function (reason) {
-            console.error('error: ' + reason.result.error.message);
-        });
 
         let data = {
             name,
@@ -192,7 +151,7 @@ function ContactArticle() {
                 <h1>CONTACT ME</h1>
                 <hr />
             </div>
-            <form className={styles['contact-form']} onSubmit={handleSubmit}>
+            <form className={styles['contact-form']}>
                 <input
                     id={"name"}
                     type={"text"}
@@ -221,6 +180,7 @@ function ContactArticle() {
                     type="submit"
                     className={styles['contact-form_input']}
                     value={"Submit"}
+                    onClick={(e) => {handleSubmit(e)}}
                 />
             </form>
 

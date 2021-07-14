@@ -1,4 +1,5 @@
-export default function (req, res) {
+
+export default function contact(req, res) {
     require('dotenv').config()
 
     let nodemailer = require('nodemailer')
@@ -6,14 +7,14 @@ export default function (req, res) {
         port: 465,
         host: "smtp.gmail.com",
         auth: {
-            user: 'celeste.87c@gmail.com',
+            user: 'celeste.87c2@gmail.com',
             pass: process.env.password,
         },
         secure: true,
     });
 
     const mailData = {
-        from: 'celeste.87c@gmail.com',
+        from: 'celeste.87c2@gmail.com',
         to: 'darponge@gmail.com',
         subject: `Message From ${req.body.name}`,
         text: req.body.message + " | Sent from: " + req.body.email,
@@ -27,6 +28,5 @@ export default function (req, res) {
             console.log(info);
     })
 
-    console.log(req.body)
-    res.send('success')
+    res.status(200)
 }
