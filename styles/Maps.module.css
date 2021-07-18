@@ -7,7 +7,7 @@
 
 .map {
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
 }
 
 .fetch-marker {
@@ -26,9 +26,14 @@
     left: 2vw;
 
     width: 20vw;
-    max-height: 100vh;
-    overflow: visible;
+    max-height: 80vh;
+    overflow: auto;
 
     background-color: white;
     padding: 1rem;
+}
+
+.search-data {
+    border: 1px #08f solid;
+    margin: 1px;
 }

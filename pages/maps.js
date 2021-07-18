@@ -1,27 +1,10 @@
 import Head from 'next/head'
 import Script from 'next/script'
-import styles from '../styles/maps.module.css'
+import styles from '../styles/Maps.module.css'
 import {useEffect, useState} from "react";
 import SearchResult from '../component/SearchResult'
 
 let map = null;
-
-let markers = [];
-let searchData = [];
-
-let MARKER_SPRITE_X_OFFSET = 29;
-let MARKER_SPRITE_POSITION = {
-    "A0": [0, 0],
-    "B0": [MARKER_SPRITE_X_OFFSET, 0],
-    "C0": [MARKER_SPRITE_X_OFFSET * 2, 0],
-    "D0": [MARKER_SPRITE_X_OFFSET * 3, 0],
-    "E0": [MARKER_SPRITE_X_OFFSET * 4, 0],
-    "F0": [MARKER_SPRITE_X_OFFSET * 5, 0],
-    "G0": [MARKER_SPRITE_X_OFFSET * 6, 0],
-    "H0": [MARKER_SPRITE_X_OFFSET * 7, 0],
-    "I0": [MARKER_SPRITE_X_OFFSET * 8, 0],
-    "J0": [MARKER_SPRITE_X_OFFSET * 9, 0],
-}
 
 function Header() {
     return (
@@ -39,7 +22,8 @@ function Header() {
 }
 
 export default function Maps() {
-    const [search, changeSearch] = useState(searchData);
+    const [search, changeSearch] = useState([]);
+    const [markers, changeMarker] = useState([]);
 
     useEffect(() => {
         changeSearch(search)
@@ -47,7 +31,7 @@ export default function Maps() {
 
     function initMap() {
         map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.3595704, 127.105399),
+            center: new naver.maps.LatLng(35.8473053319573, 128.58300780867785),
             zoom: 14, //지도의 초기 줌 레벨
             minZoom: 10, //지도의 최소 줌 레벨
             zoomControl: true, //줌 컨트롤의 표시 여부
@@ -68,8 +52,8 @@ export default function Maps() {
         for (let key in markers) {
             markers[key].setMap(null)
         }
-        markers = []
-        searchData = []
+        let markerData = []
+        let searchData = []
 
         fetch("/api/covid_screening?" +
             "north="+map.getBounds().getNE().lng()+
@@ -82,10 +66,6 @@ export default function Maps() {
             .then(body => {
                 for (let key in body) {
                     searchData.push(body[key])
-                    if (key > 9) {
-                        continue;
-                    }
-                    let objKey = Object.keys(MARKER_SPRITE_POSITION)[key]
 
                     let position = new naver.maps.LatLng(
                         body[key]["latitude"],
@@ -95,12 +75,6 @@ export default function Maps() {
                         map: map,
                         position: position,
                         title: body[key]["name"],
-                        icon: {
-                            url: '/Maps/sp_pins_spot_v3.png',
-                            size: new naver.maps.Size(24, 37),
-                            anchor: new naver.maps.Point(12, 37),
-                            origin: new naver.maps.Point(MARKER_SPRITE_POSITION[objKey][0], MARKER_SPRITE_POSITION[objKey][1])
-                        },
                         zIndex: 100
                     });
 
@@ -128,12 +102,14 @@ export default function Maps() {
                             infowindow.open(map, marker);
                         }
                     });
+
                     naver.maps.Event.addListener(map, "click", function(e) {
                         infowindow.close()
                     });
 
-                    markers.push(marker)
+                    markerData.push(marker)
                 }
+                changeMarker(markerData)
                 changeSearch(searchData)
             })
 
@@ -175,9 +151,14 @@ export default function Maps() {
                         src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=vq6cmhpbwu"/>
                 <div id="map" className={styles.map} />
                 <div className={styles['search-container']}>
-                    <SearchResult receivedData={search} />
+                    {
+                        map &&
+                        <SearchResult receivedData={search} markers={markers} map={map}/>
+                    }
                 </div>
-                <button id={"fetcher"} className={styles["fetch-marker"]} onClick={fetchMarkers}/>
+                <button id={"fetcher"} className={styles["fetch-marker"]} onClick={fetchMarkers}>
+                    현재 장소에서 찾기
+                </button>
             </main>
         </div>
     )
