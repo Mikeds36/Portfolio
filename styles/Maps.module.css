@@ -18,6 +18,7 @@
     width: 20vw;
     height: 5vh;
     display: none;
+    font-size: 1.4vw;
 }
 
 .search-container {
@@ -31,6 +32,8 @@
 
     background-color: white;
     padding: 1rem;
+
+    font-size: 1.4vw;
 }
 
 .search-data {

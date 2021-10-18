@@ -7,7 +7,6 @@ module.exports = {
         tls: false,
         "fs-extra": false,
         stream: false,
-        path: false,
         os: false,
         vm: false,
         http: false,

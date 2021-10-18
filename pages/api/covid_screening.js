@@ -1,23 +1,26 @@
-const { PrismaClient } = require('@prisma/client')
+import {query} from '../../lib/db';
 
-const prisma = new PrismaClient()
+const handler = async (req, res) => {
+    const west = parseFloat(req.query.west)
+    const east = parseFloat(req.query.east)
+    const south = parseFloat(req.query.south)
+    const north = parseFloat(req.query.north)
 
-export default async function handler(req, res) {
-    const allData = await prisma.covid_screening.findMany({
-        where: {
-            latitude: {
-                gt: parseFloat(req.query.west),
-                lt: parseFloat(req.query.east)
-            },
-            longitude: {
-                gt: parseFloat(req.query.south),
-                lt: parseFloat(req.query.north)
-            }
-        }
-    })
-
-    await prisma.$disconnect()
-
-    console.log(allData)
-    res.json(allData)
+    try {
+        const results = await query(
+            `
+            SELECT *
+                FROM covid_screening
+                WHERE 
+                    latitude < ? AND latitude > ? AND longitude < ? AND  longitude > ?
+            `,
+            [east, west, north, south]
+        )
+        console.log(results)
+        return res.json(results)
+    } catch (e) {
+        res.status(500).json({message : e.message})
+    }
 }
+
+export default handler;

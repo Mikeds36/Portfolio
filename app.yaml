@@ -1,0 +1,4 @@
+runtime: nodejs12
+
+beta_settings:
+  cloud_sql_instances: mikeds-portfolio-1:us-central1:mikeds-portfolio=tcp:3306

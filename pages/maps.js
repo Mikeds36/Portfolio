@@ -65,6 +65,9 @@ export default function Maps() {
             .then((res) => res.json())
             .then(body => {
                 for (let key in body) {
+                    if (!body.hasOwnProperty(key)) {
+                        return
+                    }
                     searchData.push(body[key])
 
                     let position = new naver.maps.LatLng(
@@ -95,7 +98,7 @@ export default function Maps() {
                         content: contentString
                     });
 
-                    naver.maps.Event.addListener(marker, "click", function(e) {
+                    naver.maps.Event.addListener(marker, "click", function() {
                         if (infowindow.getMap()) {
                             infowindow.close();
                         } else {
@@ -103,7 +106,7 @@ export default function Maps() {
                         }
                     });
 
-                    naver.maps.Event.addListener(map, "click", function(e) {
+                    naver.maps.Event.addListener(map, "click", function() {
                         infowindow.close()
                     });
 
