@@ -76,11 +76,11 @@ function SkillArticle() {
                 <h1>I used to do things like this</h1>
                 <hr />
                 <div className={styles['skill-image']}>
-                    <Image src="/Skill/php-logo.png" alt="PHP Logo" width={100} height={47} />
-                    <Image src="/Skill/html5-logo.png" alt="HTML5 Logo" width={70} height={108}/>
-                    <Image src="/Skill/node-sass-logo.png" alt="Sass Logo" width={91} height={108}/>
-                    <Image src="/Skill/javascript-logo.png" alt="Javascript Logo" width={108} height={108}/>
-                    <Image src="/Skill/Daco_2563210.png" alt="SQL Logo" width={136} height={62}/>
+                    <Image src="/Skill/php-logo.webp" alt="PHP Logo" width={100} height={47} priority={true} />
+                    <Image src="/Skill/html5-logo.webp" alt="HTML5 Logo" width={70} height={108} priority={true}/>
+                    <Image src="/Skill/node-sass-logo.webp" alt="Sass Logo" width={91} height={108} priority={true}/>
+                    <Image src="/Skill/javascript-logo.webp" alt="Javascript Logo" width={108} height={108} priority={true}/>
+                    <Image src="/Skill/Daco_2563210.webp" alt="SQL Logo" width={136} height={62} priority={true}/>
                 </div>
             </div>
 
@@ -88,11 +88,11 @@ function SkillArticle() {
                 <h1>And i also did these things</h1>
                 <hr />
                 <div className={styles['skill-image']}>
-                    <Image src="/Skill/python-logo.png" alt="Python Logo" width={108} height={108} />
-                    <Image src="/Skill/linux-logo-1.png" alt="Linux Logo" width={108} height={108} />
-                    <Image src="/Skill/raspberry-pi-logo.png" alt="C Logo" width={80} height={108} />
-                    <Image src="/Skill/c-logo-1.png" alt="C Logo" width={93} height={108} />
-                    <Image src="/Skill/java-logo-1.png" alt="C Logo" width={108} height={108} />
+                    <Image src="/Skill/python-logo.webp" alt="Python Logo" width={108} height={108} priority={true}/>
+                    <Image src="/Skill/linux-logo-1.webp" alt="Linux Logo" width={108} height={108} priority={true} />
+                    <Image src="/Skill/raspberry-pi-logo.webp" alt="C Logo" width={80} height={108} priority={true} />
+                    <Image src="/Skill/c-logo-1.webp" alt="C Logo" width={93} height={108} priority={true} />
+                    <Image src="/Skill/java-logo-1.webp" alt="C Logo" width={108} height={108} priority={true} />
                 </div>
             </div>
         </article>

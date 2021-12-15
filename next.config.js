@@ -1,4 +1,5 @@
 module.exports = {
+    distDir: '/tmp/',
   reactStrictMode: true,
   webpack: (config) => {
     config.resolve.fallback = {

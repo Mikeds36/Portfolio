@@ -1,3 +1,4 @@
+env: standard
 runtime: nodejs12
 
 beta_settings:
